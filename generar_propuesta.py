@@ -488,8 +488,9 @@ html = f'''<!DOCTYPE html>
 }}
 *{{box-sizing:border-box;margin:0;padding:0}}
 html{{scroll-behavior:smooth;scroll-padding-top:72px}}
-body{{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}}
-.wrap{{max-width:1140px;margin:0 auto;padding:0 1.25rem}}
+html{{scroll-behavior:smooth;scroll-padding-top:76px}}
+body{{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}}
+.wrap{{max-width:1140px;margin:0 auto;padding:0 clamp(.9rem,3vw,1.25rem)}}
 nav{{position:fixed;inset:0 0 auto;z-index:100;background:rgba(44,51,57,.95);backdrop-filter:blur(12px);border-bottom:3px solid var(--orange)}}
 nav .wrap{{height:64px;display:flex;align-items:center;justify-content:space-between;gap:1rem}}
 .brand{{display:flex;align-items:center;gap:.65rem}}
@@ -570,8 +571,8 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 .flow-legend{{display:flex;gap:.85rem;flex-wrap:wrap}}
 .flow-legend span{{display:inline-flex;align-items:center;gap:.35rem}}
 .dot{{width:10px;height:10px;border-radius:3px}}
-.flow-canvas{{width:100%;padding:.5rem .75rem 0;background:linear-gradient(180deg,#fbfdff,#eef4fc)}}
-#diagrama{{width:100%;height:auto;display:block;max-height:min(42vh,380px)}}
+.flow-canvas{{width:100%;padding:.5rem .75rem 0;background:linear-gradient(180deg,#fbfdff,#eef4fc);overflow-x:auto;-webkit-overflow-scrolling:touch}}
+#diagrama{{width:100%;height:auto;display:block;max-height:min(42vh,380px);min-width:0}}
 .flecha{{fill:none;stroke:#7f93a6;stroke-width:1.6;opacity:.8}}
 .flecha.ciclo{{stroke:var(--orange);stroke-dasharray:6 4;opacity:.75}}
 .lbl-ciclo{{fill:var(--orange);font-size:11px;font-weight:700;text-anchor:middle;font-family:Inter,sans-serif}}
@@ -687,8 +688,6 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 .svc-tile span{{position:relative;z-index:1;font-size:.88rem;color:var(--mute)}}
 .svc-detail{{margin-top:.85rem;padding:1rem 1.15rem;background:var(--alt);border-radius:12px;border-left:4px solid var(--orange);font-size:1rem;color:var(--mute);display:none}}
 .svc-detail.show{{display:block;animation:fadeUp .3s ease}}
-@media(max-width:1000px){{.valor-stage,.roadmap-track,.canal-stage,.svc-mosaic,.adv-rail,.canal-mosaic{{grid-template-columns:1fr 1fr}}.svc-tile:nth-child(1),.svc-tile:nth-child(6){{grid-column:span 1}}.adv-rail{{grid-template-columns:repeat(4,1fr)}}.canal-mosaic{{grid-template-columns:repeat(3,1fr)}}.roadmap-track::before{{display:none}}}}
-@media(max-width:700px){{.valor-stage,.roadmap-track,.canal-stage,.svc-mosaic,.adv-rail,.canal-mosaic,.road-panel{{grid-template-columns:1fr}}.adv-rail{{grid-template-columns:repeat(2,1fr)}}.canal-hub{{max-width:220px;margin:0 auto}}}}
 
 /* Problematica + Ventajas PDI */
 .prob-stage{{display:grid;grid-template-columns:1fr 1.05fr;gap:1.1rem;margin-top:1.4rem;align-items:start}}
@@ -741,8 +740,6 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 .pdi-inds li:nth-child(2),.pdi-inds li:nth-child(4){{border-top-color:var(--orange)}}
 .pdi-inds b{{display:block;font-family:var(--display);font-size:.98rem;margin-bottom:.3rem;color:var(--charcoal)}}
 .pdi-inds span{{font-size:.88rem;color:var(--mute)}}
-@media(max-width:1000px){{.prob-stage,.pdi-tabs,.pdi-inds{{grid-template-columns:1fr 1fr}}}}
-@media(max-width:700px){{.prob-stage,.pdi-tabs,.pdi-inds{{grid-template-columns:1fr}}}}
 
 /* KPIs */
 .kpi-tabs{{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.1rem}}
@@ -843,8 +840,78 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 }}
 .tray-ev button:hover,.tray-ev button.on,.tray-ev a.chip:hover{{background:#fff;color:var(--charcoal)}}
 .tray-ev .kind{{font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;opacity:.7}}
-@media(max-width:1100px){{.tray-rail{{grid-template-columns:repeat(4,1fr)}}.tray-stats{{grid-template-columns:1fr 1fr}}}}
-@media(max-width:800px){{.tray-stage,.tray-rail{{grid-template-columns:1fr}}.tray-preview,.tray-preview iframe{{min-height:300px}}}}
+@media(max-width:1100px){{
+  .tray-rail{{grid-template-columns:repeat(4,minmax(0,1fr))}}
+  .tray-stats{{grid-template-columns:1fr 1fr}}
+  .nav-links a{{font-size:.72rem;padding:.3rem .4rem}}
+}}
+@media(max-width:1000px){{
+  .valor-stage,.roadmap-track,.canal-stage,.svc-mosaic,.canal-mosaic,.prob-stage,.pdi-inds,
+  .bento-4,.bento-3,.plan,.split,.lineas,.piloto,.hero-metrics,.flow-grid,.servicios,.hw-grid,
+  .adv-rail{{grid-template-columns:1fr 1fr}}
+  .pdi-tabs{{grid-template-columns:1fr 1fr}}
+  .svc-tile:nth-child(1),.svc-tile:nth-child(6){{grid-column:span 1}}
+  .canal-mosaic{{grid-template-columns:repeat(3,1fr)}}
+  .roadmap-track::before{{display:none}}
+  .servicios{{grid-template-columns:1fr 1fr}}
+  .budget-row{{grid-template-columns:1fr auto;gap:.4rem .75rem}}
+  .budget-row span{{grid-column:2;justify-self:end}}
+}}
+@media(max-width:900px){{
+  .nav-links{{display:none;position:absolute;top:64px;left:0;right:0;background:var(--charcoal);padding:.85rem 1rem 1.1rem;flex-direction:column;gap:.15rem;border-bottom:3px solid var(--orange);max-height:calc(100vh - 64px);overflow-y:auto}}
+  .nav-links.open{{display:flex}}
+  .nav-links a{{font-size:.95rem;padding:.7rem .75rem}}
+  .menu{{display:inline-flex;align-items:center;gap:.35rem;cursor:pointer;font:600 .85rem var(--font)}}
+  .tray-stage{{grid-template-columns:1fr}}
+  .tray-rail{{
+    display:flex;grid-template-columns:none;overflow-x:auto;gap:.5rem;padding-bottom:.55rem;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  }}
+  .tray-chip{{min-width:158px;flex:0 0 158px;scroll-snap-align:start;min-height:88px}}
+  .tray-preview,.tray-preview iframe{{min-height:280px}}
+  .prob-stage{{grid-template-columns:1fr}}
+  .adv-rail{{
+    display:flex;grid-template-columns:none;overflow-x:auto;gap:.5rem;padding-bottom:.4rem;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  }}
+  .adv-chip{{min-width:120px;flex:0 0 120px;scroll-snap-align:start}}
+}}
+@media(max-width:700px){{
+  body{{font-size:16px}}
+  .bento-4,.bento-3,.plan,.split,.lineas,.piloto,.hero-metrics,.flow-grid,.servicios,.hw-grid,
+  .pdi-tabs,.pdi-inds,.canal-stage,.canal-mosaic,.svc-mosaic,.valor-stage,.roadmap-track,.road-panel,
+  .prob-stage,.tray-stats{{grid-template-columns:1fr}}
+  .hero{{min-height:auto}}
+  .hero-inner{{padding:6.5rem 0 2.4rem}}
+  .hero h1{{max-width:none;font-size:clamp(1.75rem,8vw,2.4rem)}}
+  .hero-metrics{{grid-template-columns:1fr 1fr;max-width:100%}}
+  .metric{{padding:.85rem .7rem}}
+  .metric b{{font-size:1.45rem}}
+  .hero-obj{{font-size:1rem;margin-bottom:1.4rem}}
+  .section-alt,section{{padding-top:3.2rem;padding-bottom:3.2rem}}
+  .flow-detail{{grid-template-columns:1fr}}
+  .flow-bar{{font-size:.78rem}}
+  #diagrama{{max-height:none;min-width:780px}}
+  .flow-canvas{{padding-bottom:.5rem}}
+  .budget{{padding:1.15rem}}
+  .budget .total{{font-size:clamp(1.6rem,8vw,2.2rem)}}
+  .budget-row{{grid-template-columns:1fr;gap:.25rem}}
+  .budget-row span,.budget-row strong{{justify-self:start}}
+  .cta{{padding:3rem 0}}
+  .cta blockquote{{padding:0 .25rem}}
+  .tray-section{{padding:3.2rem 0 3.6rem}}
+  .tray-stat b{{font-size:1.35rem}}
+  .pdi-tab{{min-height:0}}
+  .prob-panel{{min-height:0}}
+  .canal-hub{{max-width:220px;margin:0 auto}}
+  .marquee-track{{gap:1.25rem;animation-duration:36s}}
+}}
+@media(max-width:420px){{
+  .hero-metrics{{gap:.45rem}}
+  .brand b{{font-size:.9rem}}
+  .brand span{{font-size:.68rem}}
+  .tray-chip{{min-width:140px;flex-basis:140px}}
+}}
 
 .piloto{{display:grid;grid-template-columns:.8fr 1.2fr;gap:1rem}}
 .piloto-visual{{border-radius:14px;min-height:200px;background:url("media/hero-data.jpg") center/cover;position:relative}}
@@ -865,18 +932,6 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
 .marquee-track span{{font-family:var(--display);font-weight:700;font-size:.9rem;color:var(--mute)}}
 @keyframes marquee{{to{{transform:translateX(-50%)}}}}
 
-@media(max-width:1000px){{
-  .bento-4,.bento-3,.plan,.split,.lineas,.piloto,.hero-metrics,.flow-grid,.servicios,.hw-grid{{grid-template-columns:1fr 1fr}}
-  .servicios{{grid-template-columns:1fr 1fr}}
-}}
-@media(max-width:700px){{
-  .bento-4,.bento-3,.plan,.split,.lineas,.piloto,.hero-metrics,.flow-grid,.servicios,.hw-grid{{grid-template-columns:1fr}}
-  .nav-links{{display:none;position:absolute;top:64px;left:0;right:0;background:var(--charcoal);padding:.8rem;flex-direction:column}}
-  .nav-links.open{{display:flex}}.menu{{display:block}}
-  .hero h1{{max-width:none}}
-  .flow-detail{{grid-template-columns:1fr}}
-  #diagrama{{max-height:none}}
-}}
 </style>
 </head>
 <body>
@@ -1240,6 +1295,12 @@ const VENTAJAS = {json.dumps(VENTAJAS, ensure_ascii=False)};
 const SERVICIOS = {json.dumps(SERVICIOS, ensure_ascii=False)};
 const ESTUDIOS = {json.dumps(ESTUDIOS, ensure_ascii=False)};
 document.getElementById('menu').onclick=()=>document.getElementById('links').classList.toggle('open');
+document.querySelectorAll('#links a').forEach(a=>{{
+  a.addEventListener('click',()=>document.getElementById('links').classList.remove('open'));
+}});
+window.addEventListener('resize',()=>{{
+  if(innerWidth>900) document.getElementById('links').classList.remove('open');
+}});
 
 function trayPreviewHtml(e, ev){{
   if(!ev){{
