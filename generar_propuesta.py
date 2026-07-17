@@ -1448,7 +1448,7 @@ h2{{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.2rem);letter-spaci
     </div>
     <div class="talento-totals">
       {''.join(f'''<div class="talento-tot">
-        <div class="lab">{p['ini']} · {p['nombre'].split()[0]}</div>
+        <div class="lab">{p['nombre']}</div>
         <div class="val">{fmt_cop(int(p['cop'] * MESES_TALENTO))}</div>
         <div class="hint">{fmt_cop(p['cop'])}/mes × {MESES_TALENTO:g}</div>
       </div>''' for p in TALENTO)}
